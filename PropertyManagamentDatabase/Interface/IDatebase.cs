@@ -10,11 +10,11 @@ namespace PropertyManagamentDatabase.Interface
 {
     public interface  IDatabase<T> where T : EntityBase
     {
-        bool Delete(T item);
+        Task Delete(T item);
         void DeleteAll();
-        IQueryable<T> Query { get; set; }
-        void Create(T item);
-        bool Update(T item);
+        IQueryable<T> GetAll { get; set; }
+        Task Create(T item);
+        Task Update(T item);
         T GetByID(string id);
     }
 }

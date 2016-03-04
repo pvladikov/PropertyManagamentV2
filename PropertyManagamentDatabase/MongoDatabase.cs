@@ -40,7 +40,7 @@ namespace PropertyManagamentDatabase
             }
         }
 
-        public IQueryable<T> Query
+        public IQueryable<T> GetAll
         {
             get
             {
@@ -48,24 +48,25 @@ namespace PropertyManagamentDatabase
             }
             set
             {
-                Query = value;
+                GetAll = value;
             }
         }
 
-        public bool Delete(T item )
+        public async Task Delete(T item )
         {            
              var filter_builder = Builders<T>.Filter;
              var filter = filter_builder.Eq("_id", ObjectId.Parse(item.Id));
 
-            var result = collection.DeleteOne(filter);
+            await collection.DeleteOneAsync(filter);
 
-            return result.DeletedCount == 1;
+            // var result = collection.DeleteOneAsync(filter);
+            //return result.DeletedCount == 1;
 
         }
 
-        public void Create(T item)
+        public async Task Create(T item)
         {
-            collection.InsertOne(item);
+            await collection.InsertOneAsync(item);
         }
 
         public void DeleteAll()
@@ -73,12 +74,13 @@ namespace PropertyManagamentDatabase
             _db.DropCollection(typeof(T).Name);
         }
 
-        public bool Update(T item)
+        public async Task Update(T item)
         {          
 
             var filter = Builders<T>.Filter.Eq(s => s.Id, item.Id);
-            var result = collection.ReplaceOne(filter, item);
-             return result.ModifiedCount == 1;
+            await collection.ReplaceOneAsync(filter, item);
+            //var result = await collection.ReplaceOneAsync(filter, item);
+            //return result.ModifiedCount == 1;
 
         }
 

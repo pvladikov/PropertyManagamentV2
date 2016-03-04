@@ -36,7 +36,7 @@ namespace PropertyManagament.Controllers
         [HttpGet]
         public ActionResult Read()      
         {
-            var properties = propertyRepository.Query;          
+            var properties = propertyRepository.GetAll;          
             return Json(properties, JsonRequestBehavior.AllowGet);
         }
 
@@ -82,7 +82,8 @@ namespace PropertyManagament.Controllers
             Mortgage mortgage = new Mortgage();
             property.mortgage = mortgage;
 
-            var res = propertyRepository.Update(property);
+            //var res = propertyRepository.Update(property);
+            propertyRepository.Update(property);
             return Json(mortgage);         
         }
 
@@ -92,21 +93,27 @@ namespace PropertyManagament.Controllers
             Owner owner = new Owner();
             property.owners.Add(owner);
 
-            var res = propertyRepository.Update(property);
+            //var res = propertyRepository.Update(property);
+            propertyRepository.Update(property);
             return Json(owner);            
         }      
 
         [HttpPost]
         public JsonResult DeleteProperty(Property property) {
-            var res = propertyRepository.Delete(property);
-            return Json(res);
+            propertyRepository.Delete(property);
+            return Json(true);
+
+            //var res = propertyRepository.Delete(property);
+            //return Json(res);
         }
 
         [HttpPost]
         public JsonResult UpdateProperty(Property property)
         {
-            var res = propertyRepository.Update(property);
-            return Json(res);
+            //var res = propertyRepository.Update(property);
+            propertyRepository.Update(property);
+            //return Json(res);
+            return Json(true);
         }       
     }
 
