@@ -84,13 +84,17 @@ namespace PropertyManagamentDatabase
 
         }
 
-        public T GetByID(string id)
+        public async Task<T> GetByID(string id)
         {            
 
             var filter = Builders<T>.Filter.Eq(s => s.Id, id);
-            var result = collection.Find(filter).FirstOrDefault();
-            return result;
+            // var result = collection.Find(filter).FirstOrDefault();
+            // return result;
+            var result = await collection.FindAsync<T>(filter);
+            return await result.FirstOrDefaultAsync();
+           // return result.FirstOrDefault( );
+
         }
-       
+
     }
 }

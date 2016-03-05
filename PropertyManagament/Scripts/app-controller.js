@@ -192,14 +192,14 @@ app.controller('homeController',['$scope','sharedProperties','$http', function (
             var data;
             if (searchText) {
                 var ft = searchText.toLowerCase();
-                $http.get("/property/getOnwesByProperty", { params: { property_id: sharedProperties.getProperty() } }).success(function (data) {
+                $http.get("/property/getOwnersByProperty", { params: { property_id: sharedProperties.getProperty() } }).success(function (data) {
                     data = data.filter(function (item) {
                         return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                     });
                     $scope.setOwnersPagingData(data, page, pageSize);
                 });
             } else {
-                $http.get("/property/getOnwesByProperty", { params: { property_id: sharedProperties.getProperty() } }).success(function (largeLoad) {
+                $http.get("/property/getOwnersByProperty", { params: { property_id: sharedProperties.getProperty() } }).success(function (largeLoad) {
                     $scope.setOwnersPagingData(largeLoad, page, pageSize);
                 });
             }

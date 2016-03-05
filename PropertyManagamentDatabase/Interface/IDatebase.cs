@@ -15,6 +15,6 @@ namespace PropertyManagamentDatabase.Interface
         IQueryable<T> GetAll { get; set; }
         Task Create(T item);
         Task Update(T item);
-        T GetByID(string id);
+        Task<T> GetByID(string id);
     }
 }
